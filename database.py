@@ -60,10 +60,10 @@ class DataBase:
 
 load_dotenv()
 
-db = DataBase(user=os.getenv("USER"),
-              password=os.getenv("password"),
-              host=os.getenv("HOST"),
-              port=(os.getenv("PORT")),
-              database=os.getenv("DATABASE")
+db = DataBase(user=os.getenv("USER_DB"),
+              password=os.getenv("PASSWORD_DB"),
+              host=os.getenv("HOST_DB"),
+              port=(os.getenv("PORT_DB")),
+              database=os.getenv("DATABASE_NAME")
               )
 # print(os.getenv("USER"))
