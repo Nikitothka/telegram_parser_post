@@ -14,9 +14,10 @@ class DataBase:
     try:
         async def add_photo(self, channel_id: int, username: str, file_id: str, message: str, caption: str,
                             caption_entities: str):
-            return self.cursor.execute('INSERT INTO posts(channel_id, username, file_id, text, json, entity)\n'
-                                       '                                    VALUES(%s, %s, %s, %s, %s, %s)',
-                                       (channel_id, username, file_id, caption, message, caption_entities))
+            return self.cursor.execute(
+                'INSERT INTO posts(channel_id, username, file_id, text, json, entity)\n'
+                'VALUES(%s, %s, %s, %s, %s, %s)',
+                (channel_id, username, file_id, caption, message, caption_entities))
     except Exception as ex:
         print(ex)
     try:
@@ -29,10 +30,16 @@ class DataBase:
     except Exception as ex:
         print(ex)
 
-    # async def text(self, channel_id, username, message, caption):
-    #     return self.cursor.execute("""INSERT INTO posts(`id`, `username`, `message`,'caption')
-    #                                VALUES(%s, %s, %s, %s)""", (channel_id, username, message, caption))
-    #
+    try:
+        async def text(self, channel_id: int, username: str, message: str, caption: str,
+                       caption_entities: str):
+                    return self.cursor.execute(
+                        'INSERT INTO posts(channel_id, username, text, json, entity)\n'
+                        'VALUES(%s, %s, %s, %s, %s)',
+                        (channel_id, username, caption, message, caption_entities))
+    except Exception as ex:
+        print(ex)
+    
     # async def web_app(self, channel_id, username, file_id, message, caption):
     #     return self.cursor.execute("""INSERT INTO posts(`id`, `username`, `file_id`, `message`,'caption')
     #                                VALUES(%s, %s, %s, %s, %s)""", (channel_id, username, file_id, message, caption))
