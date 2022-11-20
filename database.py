@@ -44,10 +44,16 @@ class DataBase:
     #     return self.cursor.execute("""INSERT INTO posts(`id`, `username`, `file_id`, `message`,'caption')
     #                                VALUES(%s, %s, %s, %s, %s)""", (channel_id, username, file_id, message, caption))
     #
-    # async def caption(self, channel_id, username, file_id, message, caption):
-    #     return self.cursor.execute("""INSERT INTO posts(`id`, `username`, `file_id`, `message`,'caption')
-    #                                VALUES(%s, %s, %s, %s, %s)""", (channel_id, username, file_id, message, caption))
-    #
+    try:
+        async def document(self, channel_id: int, username: str, file_id: str, message: str, caption: str,
+                                  caption_entities: str, media_group_id: int):
+            return self.cursor.execute(
+                'INSERT INTO posts(channel_id, username, file_id, text, json, entity, media_group_id)\n'
+                'VALUES(%s, %s, %s, %s, %s, %s, %s)',
+                (channel_id, username, file_id, caption, message, caption_entities, media_group_id))
+    except Exception as ex:
+        print(ex)
+
     # async def add_interests(self):
     #     pass
 
