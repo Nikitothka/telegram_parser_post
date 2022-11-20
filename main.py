@@ -40,7 +40,7 @@ async def photo(client, message):
 
 
 @app.on_message(filters=filters.channel & filters.text)
-async def photo(client, message):
+async def text(client, message):
     try:
         await db.text(channel_id=int(message.chat.id),
                       username=str(message.chat.username),
@@ -54,24 +54,31 @@ async def photo(client, message):
 
 
 # @app.on_message(filters=filters.channel & filters.web_page)
-# async def incoming(client, message):
+# async def webpage(client, message):
 #     try:
-#        print(message)
+#         print(message)
+#         await db.text(channel_id=int(message.chat.id),
+#                       username=str(message.chat.username),
+#                       caption=str(message.text),
+#                       message=str(message),
+#                       caption_entities=have_entities_text(message)
+#                       )
+#
 #     except Exception as ex:
 #         print(ex)
-#
+
 @app.on_message(filters=filters.channel & filters.document)
 async def document(client, message):
     try:
         print(message)
         await db.document(channel_id=int(message.chat.id),
-                              username=str(message.chat.username),
-                              file_id=str(message.document.file_id),
-                              caption=str(message.caption),
-                              message=str(message),
-                              caption_entities=have_entities(message),
-                              media_group_id=int(message.media_group_id)
-                              )
+                          username=str(message.chat.username),
+                          file_id=str(message.document.file_id),
+                          caption=str(message.caption),
+                          message=str(message),
+                          caption_entities=have_entities(message),
+                          media_group_id=int(message.media_group_id)
+                          )
 
     except Exception as ex:
         print(ex)
