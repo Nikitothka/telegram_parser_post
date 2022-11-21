@@ -15,18 +15,18 @@ class DataBase:
         async def add_photo(self, channel_id: int, username: str, file_id: str, message: str, caption: str,
                             caption_entities: str):
             return self.cursor.execute(
-                'INSERT INTO posts(channel_id, username, file_id, text, json, entity)\n'
-                'VALUES(%s, %s, %s, %s, %s, %s)',
-                (channel_id, username, file_id, caption, message, caption_entities))
+                'INSERT INTO posts(channel_id, username, file_id, text, json, entity, type)\n'
+                'VALUES(%s, %s, %s, %s, %s, %s,%s)',
+                (channel_id, username, file_id, caption, message, caption_entities, 'photo'))
     except Exception as ex:
         print(ex)
     try:
         async def add_photo_group(self, channel_id: int, username: str, file_id: str, message: str, caption: str,
                                   caption_entities: str, media_group_id: int):
             return self.cursor.execute(
-                'INSERT INTO posts(channel_id, username, file_id, text, json, entity, media_group_id)\n'
-                'VALUES(%s, %s, %s, %s, %s, %s, %s)',
-                (channel_id, username, file_id, caption, message, caption_entities, media_group_id))
+                'INSERT INTO posts(channel_id, username, file_id, text, json, entity, media_group_id,type)\n'
+                'VALUES(%s, %s, %s, %s, %s, %s, %s,%s)',
+                (channel_id, username, file_id, caption, message, caption_entities, media_group_id, 'photo'))
     except Exception as ex:
         print(ex)
 
@@ -34,9 +34,9 @@ class DataBase:
         async def text(self, channel_id: int, username: str, message: str, caption: str,
                        caption_entities: str):
                     return self.cursor.execute(
-                        'INSERT INTO posts(channel_id, username, text, json, entity)\n'
-                        'VALUES(%s, %s, %s, %s, %s)',
-                        (channel_id, username, caption, message, caption_entities))
+                        'INSERT INTO posts(channel_id, username, text, json, entity, type)\n'
+                        'VALUES(%s, %s, %s, %s, %s,%s)',
+                        (channel_id, username, caption, message, caption_entities, 'text'))
     except Exception as ex:
         print(ex)
     
@@ -48,9 +48,9 @@ class DataBase:
         async def document(self, channel_id: int, username: str, file_id: str, message: str, caption: str,
                                   caption_entities: str, media_group_id: int):
             return self.cursor.execute(
-                'INSERT INTO posts(channel_id, username, file_id, text, json, entity, media_group_id)\n'
-                'VALUES(%s, %s, %s, %s, %s, %s, %s)',
-                (channel_id, username, file_id, caption, message, caption_entities, media_group_id))
+                'INSERT INTO posts(channel_id, username, file_id, text, json, entity, media_group_id, type)\n'
+                'VALUES(%s, %s, %s, %s, %s, %s, %s,%s)',
+                (channel_id, username, file_id, caption, message, caption_entities, media_group_id, 'document'))
     except Exception as ex:
         print(ex)
 

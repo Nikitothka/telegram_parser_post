@@ -42,6 +42,7 @@ async def photo(client, message):
 @app.on_message(filters=filters.channel & filters.text)
 async def text(client, message):
     try:
+
         await db.text(channel_id=int(message.chat.id),
                       username=str(message.chat.username),
                       caption=str(message.text),
@@ -70,7 +71,7 @@ async def text(client, message):
 @app.on_message(filters=filters.channel & filters.document)
 async def document(client, message):
     try:
-        print(message)
+
         await db.document(channel_id=int(message.chat.id),
                           username=str(message.chat.username),
                           file_id=str(message.document.file_id),
