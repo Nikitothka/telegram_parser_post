@@ -56,8 +56,8 @@ class DataBase:
 
 
 
-    # async def add_interests(self):
-    #     pass
+    async def add_interests(self):
+        pass
 
 
 load_dotenv()
