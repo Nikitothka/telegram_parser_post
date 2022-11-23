@@ -24,8 +24,8 @@ async def main():
             s = (s.find_all(class_='card-body py-2 position-relative'))
             for j in s:
                 for a in j.find_all('a', href=True):
-                    username = (str(a['href']).replace(os.getenv("URL_PARSER")+"@", '')).replace('/stat', '')
-                    await db.add_usename_for_channel(username=str(username), category_id=int(cnt_categor))
+                    username = (str(a['href']).replace(str(os.getenv("URL_PARSER_LEFT")), '')).replace('/stat', '')
+                    await db.add_username_for_channel(username=str(username), category_id=int(cnt_categor))
 
         else:
             print(r.status_code, 'не записалось')
