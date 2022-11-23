@@ -8,8 +8,11 @@ import os
 class DataBase:
 
     def __init__(self, user, password, host, port, database):
-        self.cnx = connector.connect(host=host, port=int(port), user=user, password=password, database=database)
-        self.cursor = self.cnx.cursor(dictionary=True)
+        try:
+            self.cnx = connector.connect(host=host, port=int(port), user=user, password=password, database=database)
+            self.cursor = self.cnx.cursor(dictionary=True)
+        except Exception as ex:
+            print(ex)
 
     try:
         async def add_photo(self, channel_id: int, username: str, file_id: str, message: str, caption: str,
@@ -55,10 +58,11 @@ class DataBase:
         print(ex)
     try:
         async def add_channel(self, channel_name, category_id):
-            return self.cursor.execute(
+            self.cursor.execute(
                 'INSERT INTO channels(channel_name, category_id)\n'
                 'VALUES(%s, %s)',
                 (channel_name, category_id))
+            self.cnx.commit()
     except Exception as ex:
         print(ex)
 
