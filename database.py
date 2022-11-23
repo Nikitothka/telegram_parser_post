@@ -33,20 +33,20 @@ class DataBase:
     try:
         async def text(self, channel_id: int, username: str, message: str, caption: str,
                        caption_entities: str):
-                    return self.cursor.execute(
-                        'INSERT INTO posts(channel_id, username, text, json, entity, type)\n'
-                        'VALUES(%s, %s, %s, %s, %s,%s)',
-                        (channel_id, username, caption, message, caption_entities, 'text'))
+            return self.cursor.execute(
+                'INSERT INTO posts(channel_id, username, text, json, entity, type)\n'
+                'VALUES(%s, %s, %s, %s, %s,%s)',
+                (channel_id, username, caption, message, caption_entities, 'text'))
     except Exception as ex:
         print(ex)
-    
+
     # async def web_app(self, channel_id, username, file_id, message, caption):
     #     return self.cursor.execute("""INSERT INTO posts(`id`, `username`, `file_id`, `message`,'caption')
     #                                VALUES(%s, %s, %s, %s, %s)""", (channel_id, username, file_id, message, caption))
     #
     try:
         async def document(self, channel_id: int, username: str, file_id: str, message: str, caption: str,
-                                  caption_entities: str, media_group_id: int):
+                           caption_entities: str, media_group_id: int):
             return self.cursor.execute(
                 'INSERT INTO posts(channel_id, username, file_id, text, json, entity, media_group_id, type)\n'
                 'VALUES(%s, %s, %s, %s, %s, %s, %s,%s)',
@@ -54,10 +54,11 @@ class DataBase:
     except Exception as ex:
         print(ex)
 
-
-
-    async def add_channel(self):
-        pass
+    try:
+        async def add_channel(self):
+            pass
+    except Exception as ex:
+        print(ex)
 
 
 load_dotenv()
