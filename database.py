@@ -53,12 +53,14 @@ class DataBase:
                 (channel_id, username, file_id, caption, message, caption_entities, media_group_id, 'document'))
     except Exception as ex:
         print(ex)
-
-
-
-    # async def add_interests(self):
-    #     pass
-
+    try:
+        async def add_channel(self, channel_name, category_id):
+            return self.cursor.execute(
+                'INSERT INTO channels(channel_name, category_id)\n'
+                'VALUES(%s, %s)',
+                (channel_name, category_id)
+    except Exception as ex:
+        print(ex)
 
 load_dotenv()
 
