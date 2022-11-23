@@ -58,7 +58,7 @@ class DataBase:
             return self.cursor.execute(
                 'INSERT INTO channels(channel_name, category_id)\n'
                 'VALUES(%s, %s)',
-                (channel_name, category_id)
+                (channel_name, category_id))
     except Exception as ex:
         print(ex)
 
