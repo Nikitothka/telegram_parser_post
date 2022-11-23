@@ -54,12 +54,6 @@ class DataBase:
     except Exception as ex:
         print(ex)
 
-    try:
-        async def add_channel(self):
-            pass
-    except Exception as ex:
-        print(ex)
-
 
 load_dotenv()
 
