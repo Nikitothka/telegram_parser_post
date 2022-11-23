@@ -56,7 +56,7 @@ class DataBase:
 
 
 
-    async def add_interests(self):
+    async def add_channel(self):
         pass
 
 
