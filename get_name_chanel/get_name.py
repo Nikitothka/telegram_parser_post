@@ -30,6 +30,6 @@ async def main():
         else:
             print(r.status_code, 'не записалось')
 if __name__=="__main__":
-    # asyncio.run(main())
-    print('не та прога')
+    asyncio.run(main())
+    # print('не та прога')
 
