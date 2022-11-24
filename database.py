@@ -57,11 +57,28 @@ class DataBase:
     except Exception as ex:
         print(ex)
     try:
-        async def add_channel(self, channel_name, category_id):
+        async def add_username_for_channel(self, username, category_id):
             self.cursor.execute(
-                'INSERT INTO channels(channel_name, category_id)\n'
+                'INSERT INTO channels(username, category_id)\n'
                 'VALUES(%s, %s)',
-                (channel_name, category_id))
+                (username, category_id))
+            self.cnx.commit()
+    except Exception as ex:
+        print(ex)
+    try:
+        async def get_names(self):
+
+            self.cursor.execute("""SELECT username FROM channels""")
+            return self.cursor.fetchall()
+
+    except Exception as ex:
+        print(ex)
+
+    try:
+        async def channels_update_id(self, channel_id, title, username):
+            self.cursor.execute("""UPDATE channels SET channel_id=(%s),
+                                        title=(%s) WHERE username=(%s)""",
+                                       (channel_id, title, username))
             self.cnx.commit()
     except Exception as ex:
         print(ex)
