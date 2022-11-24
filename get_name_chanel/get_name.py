@@ -18,6 +18,7 @@ async def main():
         url = os.getenv("URL_PARSER")
         url += i + url_add
         r = requests.get(url, headers=headers)
+        print(r.url)
         if r.status_code == '200' or '201':
             s = bs(r.text, 'lxml')
 
@@ -26,7 +27,6 @@ async def main():
                 for a in j.find_all('a', href=True):
                     username = (str(a['href']).replace(str(os.getenv("URL_PARSER_LEFT")), '')).replace('/stat', '')
                     await db.add_username_for_channel(username=str(username), category_id=int(cnt_categor))
-
         else:
             print(r.status_code, 'не записалось')
 if __name__=="__main__":
