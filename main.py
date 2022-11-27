@@ -58,6 +58,15 @@ async def text(client, message):
     except Exception as ex:
         print(ex)
 
+@app.on_message(filters=filters.channel & filters.web_page)
+async def webpage(client, message):
+    try:
+        with open('file.txt') as f:
+            f.write(str(message))
+            print('webpage')
+    except Exception as ex:
+        print(ex)
+
 
 @app.on_message(filters=filters.channel & filters.document)
 async def document(client, message):
