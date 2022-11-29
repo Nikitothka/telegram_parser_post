@@ -54,6 +54,22 @@ class DataBase:
     except Exception as ex:
         print(ex)
 
+    try:
+        async def get_category_id(self, channel_id):
+            self.cursor.execute("SELECT category_id FROM channels WHERE channel_id=(%s)", (channel_id,))
+            return self.cursor.fetchall()
+    except Exception as ex:
+        print(ex)
+
+    try:
+        async def add_category_id(self, channel_id, category_id):
+            self.cursor.execute("""UPDATE posts SET category_id=(%s) WHERE channel_id=(%s)""",
+                                       (category_id, channel_id))
+            return self.cnx.commit()
+    except Exception as ex:
+        print(ex)
+
+
 
 load_dotenv()
 

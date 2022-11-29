@@ -11,9 +11,6 @@ app = Client("my_account", api_id=(os.getenv("API_ID")), api_hash=(os.getenv("AP
 @app.on_message(filters=filters.channel & filters.photo & filters.media_group)
 async def photo_group(client, message):
     try:
-        await app.send_photo(chat_id=int(os.getenv("ID_BOT")), photo=message.photo.file_id,
-                             caption=message.photo.file_id)
-
         await db.add_photo_group(channel_id=int(message.chat.id),
                                  username=str(message.chat.username),
                                  file_id=str(message.photo.file_id),
@@ -22,6 +19,12 @@ async def photo_group(client, message):
                                  caption_entities=have_entities(message),
                                  media_group_id=int(message.media_group_id)
                                  )
+        category_id = (await db.get_category_id(message.chat.id))[0]['category_id']
+        await db.add_category_id(channel_id=int(message.chat.id), category_id=int(category_id))
+
+        await app.send_photo(chat_id=int(os.getenv("ID_BOT")), photo=message.photo.file_id,
+                             caption=message.photo.file_id)
+
     except Exception as ex:
         print(ex)
 
@@ -38,6 +41,9 @@ async def photo(client, message):
                            message=str(message),
                            caption_entities=have_entities(message)
                            )
+        category_id = (await db.get_category_id(message.chat.id))[0]['category_id']
+        await db.add_category_id(channel_id=int(message.chat.id), category_id=int(category_id))
+
         await app.send_photo(chat_id=int(os.getenv("ID_BOT")), photo=message.photo.file_id,
                              caption=message.photo.file_id)
 
@@ -48,13 +54,15 @@ async def photo(client, message):
 @app.on_message(filters=filters.channel & filters.text)
 async def text(client, message):
     try:
-
         await db.text(channel_id=int(message.chat.id),
                       username=str(message.chat.username),
                       caption=str(message.text),
                       message=str(message),
-                      caption_entities=have_entities_text(message)
+                      caption_entities=have_entities_text(message),
                       )
+
+        category_id = (await db.get_category_id(message.chat.id))[0]['category_id']
+        await db.add_category_id(channel_id=int(message.chat.id), category_id=int(category_id))
 
     except Exception as ex:
         print(ex)
@@ -68,23 +76,10 @@ async def webpage(client, message):
             print('webpage')
     except Exception as ex:
         print(ex)
-#         print(message)
-#         await db.text(channel_id=int(message.chat.id),
-#                       username=str(message.chat.username),
-#                       caption=str(message.text),
-#                       message=str(message),
-#                       caption_entities=have_entities_text(message)
-#                       )
-#
-#     except Exception as ex:
-#         print(ex)
 
 @app.on_message(filters=filters.channel & filters.document)
 async def document(client, message):
     try:
-
-        await app.send_photo(chat_id=int(os.getenv("ID_BOT")), photo=message.photo.file_id,
-                             caption=message.document.file_id)
 
         await db.document(channel_id=int(message.chat.id),
                           username=str(message.chat.username),
@@ -94,6 +89,11 @@ async def document(client, message):
                           caption_entities=have_entities(message),
                           media_group_id=int(message.media_group_id)
                           )
+        category_id = (await db.get_category_id(message.chat.id))[0]['category_id']
+        await db.add_category_id(channel_id=int(message.chat.id), category_id=int(category_id))
+
+        await app.send_photo(chat_id=int(os.getenv("ID_BOT")), photo=message.photo.file_id,
+                             caption=message.document.file_id)
 
     except Exception as ex:
         print(ex)
